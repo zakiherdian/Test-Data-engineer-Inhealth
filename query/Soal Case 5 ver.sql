@@ -22,9 +22,9 @@ customer_rank AS (
     SELECT
         c.email,
         s.store_Location AS city,
-        SUM(f.item_quantity) AS total_pembelian,
+        SUM(f.item_quantity* f.item_price) AS total_pembelian,
         ROW_NUMBER() OVER (
-            ORDER BY SUM(f.item_quantity) DESC
+            ORDER BY SUM(f.item_quantity* f.item_price) DESC
         ) AS rn
     FROM Fact.Fact_Transactions f
     JOIN dimension.Dim_Customer c 
